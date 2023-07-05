@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sigleton modal</title>
+  </head>
+  <style>
+    #modal {
+      height: 200px;
+      width: 200px;
+      line-height: 200px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid black;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <button id="open">Open modal</button>
+    <button id="close">Close modal</button>
+  </body>
+  <script>
+    const Modal = (function () {
+      let modal = null;
+      return function () {
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.innerHTML = "I'm a globally unique Modal";
+          modal.id = 'modal';
+          modal.style.display = 'none';
+          document.body.appendChild(modal);
+        }
+        return modal;
+      };
+    })();
+
+    document.getElementById('open').addEventListener('click', function () {
+      const modal = new Modal();
+      modal.style.display = 'block';
+    });
+
+    document.getElementById('close').addEventListener('click', function () {
+      const modal = new Modal();
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</html>
